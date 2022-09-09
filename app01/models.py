@@ -39,4 +39,9 @@ class UserInfo(models.Model):
     #   to="Department", to_field="id", null=True, blank=True, on_delete=models.SET_NULL)
     depart = models.ForeignKey(
         to="Department", to_field="id", on_delete=models.CASCADE)
-    
+    # 在 django 中完成性别约束
+    gender_choices = (
+        (1, "男"),
+        (2, "女"),
+    )
+    gender = models.SmallIntegerField(verbose_name="性别")
