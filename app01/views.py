@@ -59,7 +59,7 @@ def depart_delete(request):
     return redirect("/depart/list/")
 
 
-def depart_edit(request):
+def depart_edit(request, nid):
     """修改部门信息
 
     Args:
@@ -68,4 +68,8 @@ def depart_edit(request):
     Returns:
         _type_: _description_
     """
-    return render(request,"depart_edit.html")
+    # 根据 nid 获取对应的数据
+    row_obj = models.Department.objects.filter(id=nid).first()
+    print(row_obj.id, row_obj.title)
+
+    return render(request, "depart_edit.html",{"row_obj":row_obj})
