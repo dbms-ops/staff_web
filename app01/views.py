@@ -88,15 +88,33 @@ def user_list(request):
         querySet = models.UserInfo.objects.all()
         return render(request, 'user_list.html', {"querySet": querySet})
 
+
 def user_add(request):
     """添加用户
 
     Args:
         request (_type_): _description_
     """
-    context = {
-        "gender_choices":models.UserInfo.gender_choices,
-        "depart_list":models.Department.objects.all(),
-    }
+    if request.method == "GET":
+        context = {
+            "gender_choices": models.UserInfo.gender_choices,
+            "depart_list": models.Department.objects.all(),
+        }
 
-    return render(request,"user_add.html",context)
+        return render(request, "user_add.html", context)
+
+    # 获取用户提交的数据
+    user = request.POST.get("user")
+    pwd = request.POST.get("pwd")
+    age = request.POST.get("age")
+    account = request.POST.get("account")
+    ctime = request.POST.get("ctime")
+    gender = request.POST.get("gender")
+    depart_id = request.POST.get("department")
+
+    # 添加到数据库中
+    models.UserInfo.objects.create(user=user, password=pwd, age=age,
+                                   account=account, create_time=ctime, gender_id=gender, depart_id=depart_id)
+
+    # 返回到用户列表页面
+    return redirect("/user/list/")
