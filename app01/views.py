@@ -19,3 +19,13 @@ def depart_list(request):
     querySet = models.Department.objects.all()
 
     return render(request, 'depart_list.html', {"querySet": querySet})
+
+
+def depart_add(request):
+    """添加部门
+
+    Args:
+        request (_type_): _description_
+    """
+
+    return render(request,'depart_add.html')

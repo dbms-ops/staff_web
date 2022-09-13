@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>部门列表</title>
+    <title>新建部门</title>
     <!-- 这些文件的加载一定要正常，否则样式可能无法正常显示 -->
     <link
       rel="stylesheet"
@@ -63,47 +63,33 @@
             </li>
           </ul>
         </div>
-        <!-- /.navbar-collapse -->
       </div>
-      <!-- /.container-fluid -->
     </nav>
     <div>
       <div class="container">
-        <div style="margin-bottom: 10px">
-          <a class="btn btn-success" href="/depart/add/" target="_blank">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            新建部门
-          </a>
-        </div>
         <div class="panel panel-default">
           <!-- Default panel contents -->
           <div class="panel-heading">
             <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            部门列表
+            新建部门
           </div>
-
-          <!-- Table -->
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>名称</th>
-                <th>操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for obj in querySet %}
-              <tr>
-                <th>{{obj.id }}</th>
-                <td>{{obj.title}}</td>
-                <td>
-                  <a class="btn btn-primary btn-xs">编辑</a>
-                  <b class="btn btn-danger btn-xs">删除</b>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+          <div class="panel-body">
+          <form ">
+            <div class="form-group">
+              <label for="exampleInputEmail1">标题</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="标题"
+                name="title"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">保 存</button>
+                
+              </div>
+            </div>
+          </form>
+        </div>
         </div>
       </div>
     </div>
