@@ -21,9 +21,15 @@ from django.urls import path
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
+    # 部门管理
     path('depart/list/', views.depart_list),
     path('depart/add/', views.depart_add),
     path('depart/delete/', views.depart_delete),
     # http://127.0.0.1:8080/100/edit/
     path('depart/<int:nid>/edit/', views.depart_edit),
+
+    # user list
+    path('user/list/', views.user_list),
+    path('user/add/',views.user_add),
+
 ]

@@ -76,3 +76,27 @@ def depart_edit(request, nid):
     models.Department.objects.filter(id=nid).update(title=new_title)
 
     return redirect("/depart/list/")
+
+
+def user_list(request):
+    """用户列表
+
+    Args:
+        request (_type_): _description_
+    """
+    if request.method == "GET":
+        querySet = models.UserInfo.objects.all()
+        return render(request, 'user_list.html', {"querySet": querySet})
+
+def user_add(request):
+    """添加用户
+
+    Args:
+        request (_type_): _description_
+    """
+    context = {
+        "gender_choices":models.UserInfo.gender_choices,
+        "depart_list":models.Department.objects.all(),
+    }
+
+    return render(request,"user_add.html",context)
