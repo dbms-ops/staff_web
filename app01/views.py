@@ -1,6 +1,7 @@
 import imp
 from ast import Delete
 from http.client import HTTPResponse
+from turtle import title
 
 from django.shortcuts import redirect, render
 
@@ -69,7 +70,12 @@ def depart_edit(request, nid):
         _type_: _description_
     """
     # 根据 nid 获取对应的数据
-    row_obj = models.Department.objects.filter(id=nid).first()
-    print(row_obj.id, row_obj.title)
-
-    return render(request, "depart_edit.html",{"row_obj":row_obj})
+    if request.method == "GET":
+        row_obj = models.Department.objects.filter(id=nid).first()
+        return render(request, "depart_edit.html", {"row_obj": row_obj})
+    
+    # 处理 POST 请求
+    new_title = request.POST.get("title")
+    models.Department.objects.filter(id=nid).update(title=new_title)
+    
+    return redirect("/depart/list/")
