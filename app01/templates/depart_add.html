@@ -74,7 +74,8 @@
             新建部门
           </div>
           <div class="panel-body">
-          <form ">
+          <form method="post"">
+            {% csrf_token %}
             <div class="form-group">
               <label for="exampleInputEmail1">标题</label>
               <input
