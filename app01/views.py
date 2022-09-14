@@ -151,5 +151,17 @@ def user_model_form_add(request):
     Args:
         request (_type_): _description_
     """
-    form = UserModelForm()
+    if request.method == "GET":
+        form = UserModelForm()
+        return render(request, "user_model_form_add.html", {"form": form})
+    # 对于 POST 提交的数据进行校验
+    form = UserModelForm(data=request.POST)
+    # 数据提交合法：保存导数据库
+    if form.is_valid():
+        print(form.cleaned_data)
+        # 对于合法的数据自定进行保存，不需要 create
+        form.save()
+        return redirect('/user/list')
+    # 校验失败，在页面上显示对应的错误信息
+    # 错误信息在 form 中保存，再次返回该页面
     return render(request, "user_model_form_add.html", {"form": form})
