@@ -124,7 +124,10 @@ def user_add(request):
 
 
 class UserModelForm(forms.ModelForm):
-
+    
+    # 用户名最小长度为 3
+    name = forms.CharField(min_length=3,label="用户名")
+    
     class Meta:
         model = models.UserInfo
         fields = ["name", "password", "age",
