@@ -13,6 +13,9 @@ class Department(models.Model):
     # id = models.BigAutoField(primary_key=True, verbose_name="ID 自增主键")
     title = models.CharField(max_length=32, verbose_name="部门名称")
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class UserInfo(models.Model):
     """员工表
@@ -37,11 +40,12 @@ class UserInfo(models.Model):
     #   级联删除：depart = models.ForeignKey(to="Department",to_field="id",on_delete=models.CASCADE)
     #   设置为空：depart = models.ForeignKey(
     #   to="Department", to_field="id", null=True, blank=True, on_delete=models.SET_NULL)
-    depart = models.ForeignKey(
-        to="Department", to_field="id", on_delete=models.CASCADE)
+    depart = models.ForeignKey(verbose_name="部门",
+                               to="Department", to_field="id", on_delete=models.CASCADE)
     # 在 django 中完成性别约束
     gender_choices = (
         (1, "男"),
         (2, "女"),
     )
-    gender = models.SmallIntegerField(verbose_name="性别",choices=gender_choices)
+    gender = models.SmallIntegerField(
+        verbose_name="性别", choices=gender_choices)

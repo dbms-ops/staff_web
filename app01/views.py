@@ -126,7 +126,8 @@ class UserModelForm(forms.ModelForm):
 
     class Meta:
         model = models.UserInfo
-        fields = ["name", "password", "age", "account", "create_time"]
+        fields = ["name", "password", "age",
+                  "account", "create_time", "gender", "depart"]
 
 
 def user_model_form_add(request):
