@@ -113,8 +113,8 @@ def user_add(request):
     depart_id = request.POST.get("department")
 
     # 添加到数据库中
-    models.UserInfo.objects.create(user=user, password=pwd, age=age,
-                                   account=account, create_time=ctime, gender_id=gender, depart_id=depart_id)
+    models.UserInfo.objects.create(name=user, password=pwd, age=age,
+                                   account=account, create_time=ctime, gender=gender, depart_id=depart_id)
 
     # 返回到用户列表页面
     return redirect("/user/list/")
