@@ -28,7 +28,7 @@ class UserInfo(models.Model):
     age = models.SmallIntegerField(verbose_name="年龄")
     account = models.DecimalField(
         verbose_name="账户余额", max_digits=10, decimal_places=2, default=0)
-    create_time = models.DateTimeField(verbose_name="入职时间")
+    create_time = models.DateField(verbose_name="入职时间")
 
     # 1. 创建外键约束
     # - to：与某张表进行关联

@@ -177,6 +177,22 @@ def user_edit(request, nid):
     """
     # 获取 nid 对应行的数据
     row_object = models.UserInfo.objects.filter(id=nid).first()
-    form = UserModelForm(instance=row_object)
-    
-    return render(request, "user_edit.html", {"form": form})
+    if request.method == "GET":
+        form = UserModelForm(instance=row_object)
+        return render(request, "user_edit.html", {"form": form})
+
+    # 更新用户数据
+    form = UserModelForm(data=request.POST, instance=row_object)
+    if form.is_valid():
+        # 默认保存用户表单中输入的数据
+        # form.instance.字段名 = 值
+        form.save()
+        return redirect('/user/list/')
+
+    return render(request, 'user_edit.html', {"form": form})
+
+
+def user_delete(request, nid):
+
+    models.UserInfo.objects.filter(id=nid).delete()
+    return redirect('/user/list/')
