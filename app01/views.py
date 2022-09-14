@@ -196,3 +196,56 @@ def user_delete(request, nid):
 
     models.UserInfo.objects.filter(id=nid).delete()
     return redirect('/user/list/')
+
+
+def pretty_list(request):
+
+    if request.method == "GET":
+        querySet = models.PrettyNumber.objects.all().order_by("-level")
+        return render(request, 'pretty_list.html', {"querySet": querySet})
+
+
+class PrettyNumberModelForm(forms.ModelForm):
+    mobile = forms.CharField(
+        label="手机号",
+        
+    )
+    class Meta:
+        model = models.PrettyNumber
+        fields = ["mobile", "price", "level", "status"]
+        # fields = "__all__"
+        # exclude = ["level"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 循环查找所有插件，并且添加样式 {"class": "form-control"}
+        for name, field in self.fields.items():
+            # if name == "password":
+            #     continue
+            field.widget.attrs = {
+                "class": "form-control", "placeholder": field.label}
+
+
+def pretty_add(request):
+    """添加靓号
+
+    Args:
+        request (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+
+    if request.method == "GET":
+        form = PrettyNumberModelForm()
+        return render(request, "pretty_add.html", {"form": form})
+    # 对于 POST 提交的数据进行校验
+    form = PrettyNumberModelForm(data=request.POST)
+    # 数据提交合法：保存导数据库
+    if form.is_valid():
+        # 对于合法的数据自定进行保存，不需要 对于数据进行格式校验
+        form.save()
+        return redirect('/pretty/list')
+    # 校验失败，在页面上显示对应的错误信息
+    # 错误信息在 form 中保存，再次返回该页面
+    return render(request, "pretty_add.html", {"form": form})
