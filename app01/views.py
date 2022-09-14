@@ -124,28 +124,27 @@ def user_add(request):
 
 
 class UserModelForm(forms.ModelForm):
-    
+
     # 用户名最小长度为 3
-    name = forms.CharField(min_length=3,label="用户名")
-    
+    name = forms.CharField(min_length=3, label="用户名")
+
     class Meta:
         model = models.UserInfo
         fields = ["name", "password", "age",
                   "account", "create_time", "gender", "depart"]
-        widgets = {
-            "password": forms.PasswordInput(attrs={"class": "form-control"}),
+        # widgets = {
+        #     "password": forms.PasswordInput(attrs={"class": "form-control"}),
 
-        }
+        # }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # 循环查找所有插件，并且添加样式 {"class": "form-control"}
         for name, field in self.fields.items():
-            if name == "password":
-                continue
+            # if name == "password":
+            #     continue
             field.widget.attrs = {
                 "class": "form-control", "placeholder": field.label}
-            print(name, field)
 
 
 def user_model_form_add(request):
@@ -168,3 +167,16 @@ def user_model_form_add(request):
     # 校验失败，在页面上显示对应的错误信息
     # 错误信息在 form 中保存，再次返回该页面
     return render(request, "user_model_form_add.html", {"form": form})
+
+
+def user_edit(request, nid):
+    """编辑用户
+
+    Args:
+        request (_type_): _description_
+    """
+    # 获取 nid 对应行的数据
+    row_object = models.UserInfo.objects.filter(id=nid).first()
+    form = UserModelForm(instance=row_object)
+    
+    return render(request, "user_edit.html", {"form": form})
