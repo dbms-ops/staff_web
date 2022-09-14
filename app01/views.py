@@ -1,5 +1,6 @@
 from http.client import HTTPResponse
 from importlib.resources import path
+from tkinter import Widget
 
 from django import forms
 from django.shortcuts import redirect, render
@@ -128,6 +129,20 @@ class UserModelForm(forms.ModelForm):
         model = models.UserInfo
         fields = ["name", "password", "age",
                   "account", "create_time", "gender", "depart"]
+        widgets = {
+            "password": forms.PasswordInput(attrs={"class": "form-control"}),
+
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 循环查找所有插件，并且添加样式 {"class": "form-control"}
+        for name, field in self.fields.items():
+            if name == "password":
+                continue
+            field.widget.attrs = {
+                "class": "form-control", "placeholder": field.label}
+            print(name, field)
 
 
 def user_model_form_add(request):
