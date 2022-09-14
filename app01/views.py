@@ -1,5 +1,7 @@
 from http.client import HTTPResponse
+from importlib.resources import path
 
+from django import forms
 from django.shortcuts import redirect, render
 
 from app01 import models
@@ -118,3 +120,20 @@ def user_add(request):
 
     # 返回到用户列表页面
     return redirect("/user/list/")
+
+
+class UserModelForm(forms.ModelForm):
+
+    class Meta:
+        model = models.UserInfo
+        fields = ["name", "password", "age", "account", "create_time"]
+
+
+def user_model_form_add(request):
+    """添加用户 基于 modelForm 版本
+
+    Args:
+        request (_type_): _description_
+    """
+    form = UserModelForm()
+    return render(request, "user_model_form_add.html", {"form": form})

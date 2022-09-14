@@ -20,9 +20,9 @@ class UserInfo(models.Model):
     Args:
         models (_type_): _description_
     """
-    name = models.CharField(max_length=32, verbose_name="员工姓名")
-    password = models.CharField(max_length=64, verbose_name="用户登录密码")
-    age = models.SmallIntegerField(verbose_name="员工年龄")
+    name = models.CharField(max_length=32, verbose_name="姓名")
+    password = models.CharField(max_length=64, verbose_name="密码")
+    age = models.SmallIntegerField(verbose_name="年龄")
     account = models.DecimalField(
         verbose_name="账户余额", max_digits=10, decimal_places=2, default=0)
     create_time = models.DateTimeField(verbose_name="入职时间")

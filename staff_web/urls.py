@@ -31,5 +31,6 @@ urlpatterns = [
     # user list
     path('user/list/', views.user_list),
     path('user/add/',views.user_add),
+    path('user/model/form/add/',views.user_model_form_add),
 
 ]
